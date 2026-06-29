@@ -4,9 +4,10 @@ import type { Attendance } from '../../../types/Attendance';
 type DashboardScheduleCardProps = {
     attendance: Attendance;
     onComplete?: (attendance: Attendance) => void;
+    onDelete?: (attendance: Attendance) => void;
 };
 
-export function DashboardScheduleCard({ attendance, onComplete }: DashboardScheduleCardProps) {
+export function DashboardScheduleCard({ attendance, onComplete, onDelete }: DashboardScheduleCardProps) {
     const isCompleted = attendance.status === 'Concluido';
 
     return (
@@ -34,14 +35,27 @@ export function DashboardScheduleCard({ attendance, onComplete }: DashboardSched
                     </Text>
                 )}
 
-                {onComplete && (
-                    <Button
-                        mt="xs"
-                        variant={isCompleted ? 'light' : 'filled'}
-                        onClick={() => onComplete(attendance)}
-                    >
-                        {isCompleted ? 'Editar relatorio' : 'Concluir consulta'}
-                    </Button>
+                {(onComplete || onDelete) && (
+                    <Group grow mt="xs">
+                        {onComplete && (
+                            <Button
+                                variant={isCompleted ? 'light' : 'filled'}
+                                onClick={() => onComplete(attendance)}
+                            >
+                                {isCompleted ? 'Editar relatorio' : 'Concluir consulta'}
+                            </Button>
+                        )}
+
+                        {onDelete && (
+                            <Button
+                                variant="light"
+                                color="red"
+                                onClick={() => onDelete(attendance)}
+                            >
+                                Remover horario
+                            </Button>
+                        )}
+                    </Group>
                 )}
             </Stack>
         </Card>

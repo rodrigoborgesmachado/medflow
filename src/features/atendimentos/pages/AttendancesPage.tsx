@@ -1,8 +1,9 @@
 import { Button, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { getAttendances } from '../../../services/attendanceService';
+import { deleteAttendance, getAttendances } from '../../../services/attendanceService';
 import type { Attendance } from '../../../types/Attendance';
 import { AttendanceCalendarGrid } from '../components/AttendanceCalendarGrid';
 import { AppointmentFormModal } from '../components/AppointmentFormModal';
@@ -25,6 +26,22 @@ export function AttendancesPage() {
         completeHandlers.open();
     }
 
+    async function handleDelete(attendance: Attendance) {
+        const confirmed = window.confirm(`Remover o horario de ${attendance.patientName}?`);
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            await deleteAttendance(attendance);
+            toast.success('Horario removido com sucesso.');
+            await loadAttendances();
+        } catch {
+            toast.error('Erro ao remover horario.');
+        }
+    }
+
     useEffect(() => {
         loadAttendances();
     }, []);
@@ -39,6 +56,7 @@ export function AttendancesPage() {
                 <AttendanceCalendarGrid
                     attendances={attendances}
                     onComplete={handleComplete}
+                    onDelete={handleDelete}
                 />
             </Stack>
 

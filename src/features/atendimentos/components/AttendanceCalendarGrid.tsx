@@ -10,6 +10,7 @@ type CalendarViewMode = 'day' | 'week';
 type AttendanceCalendarGridProps = {
     attendances: Attendance[];
     onComplete: (attendance: Attendance) => void;
+    onDelete: (attendance: Attendance) => void;
 };
 
 const DEFAULT_START_HOUR = 6;
@@ -145,7 +146,7 @@ function getEventClassName(attendance: Attendance) {
     return 'attendance-calendar__event';
 }
 
-export function AttendanceCalendarGrid({ attendances, onComplete }: AttendanceCalendarGridProps) {
+export function AttendanceCalendarGrid({ attendances, onComplete, onDelete }: AttendanceCalendarGridProps) {
     const [viewMode, setViewMode] = useState<CalendarViewMode>('day');
     const [selectedDate, setSelectedDate] = useState(getTodayDateInputValue());
     const today = getTodayDateInputValue();
@@ -315,13 +316,24 @@ export function AttendanceCalendarGrid({ attendances, onComplete }: AttendanceCa
                                                             {attendance.professional || 'Sem profissional'}
                                                         </Text>
 
-                                                        <Button
-                                                            size="compact-xs"
-                                                            variant={isCompleted ? 'light' : 'filled'}
-                                                            onClick={() => onComplete(attendance)}
-                                                        >
-                                                            {isCompleted ? 'Editar relatorio' : 'Concluir'}
-                                                        </Button>
+                                                        <Group grow gap={6}>
+                                                            <Button
+                                                                size="compact-xs"
+                                                                variant={isCompleted ? 'light' : 'filled'}
+                                                                onClick={() => onComplete(attendance)}
+                                                            >
+                                                                {isCompleted ? 'Editar relatorio' : 'Concluir'}
+                                                            </Button>
+
+                                                            <Button
+                                                                size="compact-xs"
+                                                                variant="light"
+                                                                color="red"
+                                                                onClick={() => onDelete(attendance)}
+                                                            >
+                                                                Remover
+                                                            </Button>
+                                                        </Group>
                                                     </Stack>
                                                 </div>
                                             );

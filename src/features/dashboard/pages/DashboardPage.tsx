@@ -1,8 +1,9 @@
 import { Badge, Button, Card, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { getAttendances } from '../../../services/attendanceService';
+import { deleteAttendance, getAttendances } from '../../../services/attendanceService';
 import type { Attendance } from '../../../types/Attendance';
 import { addDays, formatDateToDisplay, getTodayDateInputValue } from '../../../utils/dateUtils';
 import { CompleteAttendanceModal } from '../../atendimentos/components/CompleteAttendanceModal';
@@ -56,6 +57,22 @@ export function DashboardPage() {
     function handleComplete(attendance: Attendance) {
         setSelectedAttendance(attendance);
         completeHandlers.open();
+    }
+
+    async function handleDelete(attendance: Attendance) {
+        const confirmed = window.confirm(`Remover o horario de ${attendance.patientName}?`);
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            await deleteAttendance(attendance);
+            toast.success('Horario removido com sucesso.');
+            await loadAttendances();
+        } catch {
+            toast.error('Erro ao remover horario.');
+        }
     }
 
     function isTimeOccupied(time: string) {
@@ -122,6 +139,7 @@ export function DashboardPage() {
                             key={attendance.id}
                             attendance={attendance}
                             onComplete={handleComplete}
+                            onDelete={handleDelete}
                         />
                     ))}
 

@@ -186,3 +186,24 @@ ${report}
 export async function updateAttendanceReport(attendance: Attendance, report: string) {
     await completeAttendance(attendance, report);
 }
+
+export async function deleteAttendance(attendance: Attendance) {
+    const rootHandle = getRootDirectoryHandle();
+
+    if (!rootHandle) {
+        throw new Error('Pasta principal nÃ£o selecionada.');
+    }
+
+    const attendancesDirectory = await getDirectory(rootHandle, 'Atendimentos');
+
+    await attendancesDirectory.removeEntry(attendance.folderName, { recursive: true });
+
+    try {
+        const patientsDirectory = await getDirectory(rootHandle, 'Pacientes');
+        const patientDirectory = await patientsDirectory.getDirectoryHandle(`paciente_${attendance.patientId}`);
+
+        await patientDirectory.removeEntry(`resultado_atendimento_${attendance.id}.txt`);
+    } catch {
+        // Report file is optional and may not exist for scheduled attendances.
+    }
+}
