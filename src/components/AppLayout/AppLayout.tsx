@@ -9,6 +9,7 @@ import {
 } from '../../services/fileSystemService';
 import { ProfessionalModal } from '../ProfessionalModal/ProfessionalModal';
 import { Sidebar } from '../Sidebar/Sidebar';
+import { Footer } from '../Footer/Footer';
 
 export function AppLayout() {
     const [opened, { toggle }] = useDisclosure();
@@ -89,6 +90,11 @@ export function AppLayout() {
                 <AppShell.Main>
                     <Outlet />
                 </AppShell.Main>
+
+                <AppShell.Footer>
+                    <Footer />
+                </AppShell.Footer>
+
             </AppShell>
 
             <ProfessionalModal
