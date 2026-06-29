@@ -191,7 +191,7 @@ export function AttendanceCalendarGrid({
                 <Group justify="space-between" className="attendance-calendar__toolbar">
                     <Group>
                         <Tooltip label={viewMode === 'week' ? 'Semana anterior' : 'Dia anterior'}>
-                            <ActionIcon variant="light" size="lg" onClick={() => navigate(-1)} aria-label="Periodo anterior">
+                            <ActionIcon variant="light" size="lg" onClick={() => navigate(-1)} aria-label="Período anterior">
                                 <IconChevronLeft size={18} />
                             </ActionIcon>
                         </Tooltip>
@@ -203,8 +203,8 @@ export function AttendanceCalendarGrid({
                             </Text>
                         </div>
 
-                        <Tooltip label={viewMode === 'week' ? 'Proxima semana' : 'Proximo dia'}>
-                            <ActionIcon variant="light" size="lg" onClick={() => navigate(1)} aria-label="Proximo periodo">
+                        <Tooltip label={viewMode === 'week' ? 'Próxima semana' : 'Próximo dia'}>
+                            <ActionIcon variant="light" size="lg" onClick={() => navigate(1)} aria-label="Próximo período">
                                 <IconChevronRight size={18} />
                             </ActionIcon>
                         </Tooltip>
@@ -325,7 +325,7 @@ export function AttendanceCalendarGrid({
 
                                                         {attendance.summary && (
                                                             <Text size="xs" className="attendance-calendar__event-summary">
-                                                                Observacao: {attendance.summary}
+                                                                Observação: {attendance.summary}
                                                             </Text>
                                                         )}
 
@@ -360,7 +360,7 @@ export function AttendanceCalendarGrid({
 
                 {visibleAttendances.length === 0 && (
                     <div className="attendance-calendar__empty">
-                        Nenhum atendimento neste periodo.
+                        Nenhum atendimento neste período.
                     </div>
                 )}
             </Stack>

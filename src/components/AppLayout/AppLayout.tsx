@@ -65,7 +65,7 @@ export function AppLayout() {
                     <Group h="100%" px="md" justify="space-between">
                         <Group>
                             <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-                            <Link to="/" aria-label="Ir para a pagina inicial">
+                            <Link to="/" aria-label="Ir para a página inicial">
                                 <img
                                     src={logo}
                                     alt="MedFlow Agenda"

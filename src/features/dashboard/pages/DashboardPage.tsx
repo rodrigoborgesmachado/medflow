@@ -60,7 +60,7 @@ export function DashboardPage() {
     }
 
     async function handleDelete(attendance: Attendance) {
-        const confirmed = window.confirm(`Remover o horario de ${attendance.patientName}?`);
+        const confirmed = window.confirm(`Remover o horário de ${attendance.patientName}?`);
 
         if (!confirmed) {
             return;
@@ -68,10 +68,10 @@ export function DashboardPage() {
 
         try {
             await deleteAttendance(attendance);
-            toast.success('Horario removido com sucesso.');
+            toast.success('Horário removido com sucesso.');
             await loadAttendances();
         } catch {
-            toast.error('Erro ao remover horario.');
+            toast.error('Erro ao remover horário.');
         }
     }
 

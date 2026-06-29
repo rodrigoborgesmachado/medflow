@@ -31,7 +31,7 @@ export function DashboardScheduleCard({ attendance, onComplete, onDelete }: Dash
 
                 {attendance.summary && (
                     <Text size="sm" c="dimmed">
-                        <Text span fw={700} c="dark">Observacao: </Text>
+                        <Text span fw={700} c="dark">Observação: </Text>
                         {attendance.summary}
                     </Text>
                 )}
@@ -53,7 +53,7 @@ export function DashboardScheduleCard({ attendance, onComplete, onDelete }: Dash
                                 color="red"
                                 onClick={() => onDelete(attendance)}
                             >
-                                Remover horario
+                                Remover horário
                             </Button>
                         )}
                     </Group>
