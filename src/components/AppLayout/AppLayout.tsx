@@ -1,8 +1,10 @@
-import { AppShell, Badge, Burger, Button, Group, Text } from '@mantine/core';
+import { AppShell, Badge, Burger, Button, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import logo from '../../assets/logo.png';
 import {
     getProfessionalName,
     selectMainDirectory
@@ -63,7 +65,18 @@ export function AppLayout() {
                     <Group h="100%" px="md" justify="space-between">
                         <Group>
                             <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-                            <Text fw={700}>MedFlow Agenda</Text>
+                            <Link to="/" aria-label="Ir para a pagina inicial">
+                                <img
+                                    src={logo}
+                                    alt="MedFlow Agenda"
+                                    style={{
+                                        display: 'block',
+                                        height: 40,
+                                        width: 'auto'
+                                    }}
+                                />
+                            </Link>
+                            MedFlow
                         </Group>
 
                         <Group>
