@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { getAttendances } from '../../../services/attendanceService';
 import type { Attendance } from '../../../types/Attendance';
+import { AttendanceCalendarGrid } from '../components/AttendanceCalendarGrid';
 import { AppointmentFormModal } from '../components/AppointmentFormModal';
-import { AttendanceCard } from '../components/AttendanceCard';
 import { CompleteAttendanceModal } from '../components/CompleteAttendanceModal';
 
 export function AttendancesPage() {
@@ -36,13 +36,10 @@ export function AttendancesPage() {
             </PageHeader>
 
             <Stack>
-                {attendances.map(attendance => (
-                    <AttendanceCard
-                        key={attendance.id}
-                        attendance={attendance}
-                        onComplete={handleComplete}
-                    />
-                ))}
+                <AttendanceCalendarGrid
+                    attendances={attendances}
+                    onComplete={handleComplete}
+                />
             </Stack>
 
             <AppointmentFormModal

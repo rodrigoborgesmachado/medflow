@@ -5,6 +5,7 @@ import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { getAttendances } from '../../../services/attendanceService';
 import type { Attendance } from '../../../types/Attendance';
 import { addDays, formatDateToDisplay, getTodayDateInputValue } from '../../../utils/dateUtils';
+import { CompleteAttendanceModal } from '../../atendimentos/components/CompleteAttendanceModal';
 import { DashboardAppointmentModal } from '../components/DashboardAppointmentModal';
 import { DashboardScheduleCard } from '../components/DashboardScheduleCard';
 
@@ -27,7 +28,9 @@ export function DashboardPage() {
     const [selectedDate, setSelectedDate] = useState(getTodayDateInputValue());
     const [attendances, setAttendances] = useState<Attendance[]>([]);
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
+    const [selectedAttendance, setSelectedAttendance] = useState<Attendance | null>(null);
     const [opened, handlers] = useDisclosure(false);
+    const [completeOpened, completeHandlers] = useDisclosure(false);
 
     const dayAttendances = useMemo(() => {
         return attendances
@@ -48,6 +51,11 @@ export function DashboardPage() {
     function handleAddAttendance(time?: string) {
         setSelectedTime(time ?? null);
         handlers.open();
+    }
+
+    function handleComplete(attendance: Attendance) {
+        setSelectedAttendance(attendance);
+        completeHandlers.open();
     }
 
     function isTimeOccupied(time: string) {
@@ -113,6 +121,7 @@ export function DashboardPage() {
                         <DashboardScheduleCard
                             key={attendance.id}
                             attendance={attendance}
+                            onComplete={handleComplete}
                         />
                     ))}
 
@@ -158,6 +167,13 @@ export function DashboardPage() {
                 onSuccess={loadAttendances}
                 selectedDate={selectedDate}
                 selectedTime={selectedTime}
+            />
+
+            <CompleteAttendanceModal
+                opened={completeOpened}
+                attendance={selectedAttendance}
+                onClose={completeHandlers.close}
+                onSuccess={loadAttendances}
             />
         </>
     );

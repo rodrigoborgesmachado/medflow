@@ -1,0 +1,159 @@
+.attendance-calendar {
+    overflow: hidden;
+}
+
+.attendance-calendar__toolbar {
+    gap: 12px;
+}
+
+.attendance-calendar__scroller {
+    overflow-x: auto;
+    border: 1px solid var(--mantine-color-gray-3);
+    border-radius: 8px;
+}
+
+.attendance-calendar__grid {
+    min-width: 820px;
+}
+
+.attendance-calendar__header,
+.attendance-calendar__body {
+    display: grid;
+    grid-template-columns: 76px repeat(var(--calendar-days), minmax(150px, 1fr));
+}
+
+.attendance-calendar__header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: light-dark(var(--mantine-color-white), var(--mantine-color-dark-7));
+    border-bottom: 1px solid var(--mantine-color-gray-3);
+}
+
+.attendance-calendar__corner,
+.attendance-calendar__day-header {
+    min-height: 64px;
+    padding: 10px 12px;
+}
+
+.attendance-calendar__corner {
+    border-right: 1px solid var(--mantine-color-gray-3);
+}
+
+.attendance-calendar__day-header {
+    border-right: 1px solid var(--mantine-color-gray-3);
+}
+
+.attendance-calendar__day-header:last-child {
+    border-right: 0;
+}
+
+.attendance-calendar__day-header--today {
+    background: light-dark(var(--mantine-color-blue-0), rgba(34, 139, 230, 0.16));
+}
+
+.attendance-calendar__body {
+    min-height: var(--calendar-height);
+}
+
+.attendance-calendar__times {
+    position: relative;
+    min-height: var(--calendar-height);
+    border-right: 1px solid var(--mantine-color-gray-3);
+    background: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8));
+}
+
+.attendance-calendar__time {
+    position: absolute;
+    right: 12px;
+    transform: translateY(-50%);
+    color: var(--mantine-color-dimmed);
+    font-size: 12px;
+    line-height: 1;
+}
+
+.attendance-calendar__time--first {
+    transform: translateY(2px);
+}
+
+.attendance-calendar__day {
+    position: relative;
+    min-height: var(--calendar-height);
+    border-right: 1px solid var(--mantine-color-gray-3);
+    background: light-dark(var(--mantine-color-white), var(--mantine-color-dark-7));
+}
+
+.attendance-calendar__day:last-child {
+    border-right: 0;
+}
+
+.attendance-calendar__slot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
+}
+
+.attendance-calendar__event {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    min-height: 88px;
+    overflow: hidden;
+    border: 1px solid light-dark(var(--mantine-color-blue-2), var(--mantine-color-blue-8));
+    border-left: 4px solid var(--mantine-color-blue-6);
+    border-radius: 8px;
+    background: light-dark(var(--mantine-color-blue-0), rgba(25, 113, 194, 0.22));
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
+}
+
+.attendance-calendar__event--completed {
+    border-color: light-dark(var(--mantine-color-green-2), var(--mantine-color-green-8));
+    border-left-color: var(--mantine-color-green-6);
+    background: light-dark(var(--mantine-color-green-0), rgba(47, 158, 68, 0.18));
+}
+
+.attendance-calendar__event--canceled {
+    border-color: light-dark(var(--mantine-color-red-2), var(--mantine-color-red-8));
+    border-left-color: var(--mantine-color-red-6);
+    background: light-dark(var(--mantine-color-red-0), rgba(224, 49, 49, 0.18));
+}
+
+.attendance-calendar__event-content {
+    height: 100%;
+    padding: 10px;
+}
+
+.attendance-calendar__event-title,
+.attendance-calendar__event-meta {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.attendance-calendar__empty {
+    padding: 28px;
+    text-align: center;
+    color: var(--mantine-color-dimmed);
+}
+
+@media (max-width: 640px) {
+    .attendance-calendar__toolbar {
+        align-items: stretch;
+    }
+
+    .attendance-calendar__grid {
+        min-width: 620px;
+    }
+
+    .attendance-calendar__header,
+    .attendance-calendar__body {
+        grid-template-columns: 64px repeat(var(--calendar-days), minmax(132px, 1fr));
+    }
+
+    .attendance-calendar__corner,
+    .attendance-calendar__day-header {
+        min-height: 58px;
+        padding: 8px;
+    }
+}

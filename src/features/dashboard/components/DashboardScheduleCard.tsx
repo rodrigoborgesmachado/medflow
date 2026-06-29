@@ -1,11 +1,12 @@
-import { Badge, Card, Group, Stack, Text, Title } from '@mantine/core';
+import { Badge, Button, Card, Group, Stack, Text, Title } from '@mantine/core';
 import type { Attendance } from '../../../types/Attendance';
 
 type DashboardScheduleCardProps = {
     attendance: Attendance;
+    onComplete?: (attendance: Attendance) => void;
 };
 
-export function DashboardScheduleCard({ attendance }: DashboardScheduleCardProps) {
+export function DashboardScheduleCard({ attendance, onComplete }: DashboardScheduleCardProps) {
     const isCompleted = attendance.status === 'Concluido';
 
     return (
@@ -31,6 +32,16 @@ export function DashboardScheduleCard({ attendance }: DashboardScheduleCardProps
                     <Text size="sm">
                         {attendance.summary}
                     </Text>
+                )}
+
+                {onComplete && (
+                    <Button
+                        mt="xs"
+                        variant={isCompleted ? 'light' : 'filled'}
+                        onClick={() => onComplete(attendance)}
+                    >
+                        {isCompleted ? 'Editar relatorio' : 'Concluir consulta'}
+                    </Button>
                 )}
             </Stack>
         </Card>

@@ -51,6 +51,7 @@ export function AppLayout() {
         <>
             <AppShell
                 header={{ height: 60 }}
+                footer={{ height: 80 }}
                 navbar={{
                     width: 260,
                     breakpoint: 'sm',
