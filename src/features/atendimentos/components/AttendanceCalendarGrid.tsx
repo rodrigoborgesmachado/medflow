@@ -9,13 +9,15 @@ type CalendarViewMode = 'day' | 'week';
 
 type AttendanceCalendarGridProps = {
     attendances: Attendance[];
+    selectedDate: string;
+    onSelectedDateChange: (date: string) => void;
     onComplete: (attendance: Attendance) => void;
     onDelete: (attendance: Attendance) => void;
 };
 
 const DEFAULT_START_HOUR = 6;
 const DEFAULT_END_HOUR = 19;
-const OCCUPIED_HOUR_HEIGHT = 132;
+const OCCUPIED_HOUR_HEIGHT = 156;
 const EMPTY_HOUR_HEIGHT = 40;
 
 function parseDate(date: string) {
@@ -146,9 +148,14 @@ function getEventClassName(attendance: Attendance) {
     return 'attendance-calendar__event';
 }
 
-export function AttendanceCalendarGrid({ attendances, onComplete, onDelete }: AttendanceCalendarGridProps) {
+export function AttendanceCalendarGrid({
+    attendances,
+    selectedDate,
+    onSelectedDateChange,
+    onComplete,
+    onDelete
+}: AttendanceCalendarGridProps) {
     const [viewMode, setViewMode] = useState<CalendarViewMode>('day');
-    const [selectedDate, setSelectedDate] = useState(getTodayDateInputValue());
     const today = getTodayDateInputValue();
 
     const visibleDates = useMemo(() => getVisibleDates(selectedDate, viewMode), [selectedDate, viewMode]);
@@ -175,7 +182,7 @@ export function AttendanceCalendarGrid({ attendances, onComplete, onDelete }: At
     const step = viewMode === 'week' ? 7 : 1;
 
     function navigate(direction: -1 | 1) {
-        setSelectedDate(currentDate => addDays(currentDate, direction * step));
+        onSelectedDateChange(addDays(selectedDate, direction * step));
     }
 
     return (
@@ -204,7 +211,7 @@ export function AttendanceCalendarGrid({ attendances, onComplete, onDelete }: At
                     </Group>
 
                     <Group>
-                        <Button variant="light" onClick={() => setSelectedDate(today)}>
+                        <Button variant="light" onClick={() => onSelectedDateChange(today)}>
                             Hoje
                         </Button>
 
@@ -315,6 +322,12 @@ export function AttendanceCalendarGrid({ attendances, onComplete, onDelete }: At
                                                         <Text size="xs" className="attendance-calendar__event-meta">
                                                             {attendance.professional || 'Sem profissional'}
                                                         </Text>
+
+                                                        {attendance.summary && (
+                                                            <Text size="xs" className="attendance-calendar__event-summary">
+                                                                Observacao: {attendance.summary}
+                                                            </Text>
+                                                        )}
 
                                                         <Group grow gap={6}>
                                                             <Button

@@ -5,14 +5,16 @@ import toast from 'react-hot-toast';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { deleteAttendance, getAttendances } from '../../../services/attendanceService';
 import type { Attendance } from '../../../types/Attendance';
+import { getTodayDateInputValue } from '../../../utils/dateUtils';
+import { DashboardAppointmentModal } from '../../dashboard/components/DashboardAppointmentModal';
 import { AttendanceCalendarGrid } from '../components/AttendanceCalendarGrid';
-import { AppointmentFormModal } from '../components/AppointmentFormModal';
 import { CompleteAttendanceModal } from '../components/CompleteAttendanceModal';
 
 export function AttendancesPage() {
     const [opened, { open, close }] = useDisclosure(false);
     const [completeOpened, completeHandlers] = useDisclosure(false);
     const [attendances, setAttendances] = useState<Attendance[]>([]);
+    const [calendarDate, setCalendarDate] = useState(getTodayDateInputValue());
     const [selectedAttendance, setSelectedAttendance] = useState<Attendance | null>(null);
 
     async function loadAttendances() {
@@ -55,15 +57,19 @@ export function AttendancesPage() {
             <Stack>
                 <AttendanceCalendarGrid
                     attendances={attendances}
+                    selectedDate={calendarDate}
+                    onSelectedDateChange={setCalendarDate}
                     onComplete={handleComplete}
                     onDelete={handleDelete}
                 />
             </Stack>
 
-            <AppointmentFormModal
+            <DashboardAppointmentModal
                 opened={opened}
                 onClose={close}
                 onSuccess={loadAttendances}
+                selectedDate={calendarDate}
+                selectedTime={null}
             />
 
             <CompleteAttendanceModal

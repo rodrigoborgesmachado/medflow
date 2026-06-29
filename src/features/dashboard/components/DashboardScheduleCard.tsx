@@ -30,7 +30,8 @@ export function DashboardScheduleCard({ attendance, onComplete, onDelete }: Dash
                 </Text>
 
                 {attendance.summary && (
-                    <Text size="sm">
+                    <Text size="sm" c="dimmed">
+                        <Text span fw={700} c="dark">Observacao: </Text>
                         {attendance.summary}
                     </Text>
                 )}

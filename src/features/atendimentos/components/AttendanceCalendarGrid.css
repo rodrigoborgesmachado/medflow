@@ -125,10 +125,15 @@
 }
 
 .attendance-calendar__event-title,
-.attendance-calendar__event-meta {
+.attendance-calendar__event-meta,
+.attendance-calendar__event-summary {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.attendance-calendar__event-summary {
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-3));
 }
 
 .attendance-calendar__empty {
